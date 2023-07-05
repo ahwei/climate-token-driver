@@ -16,7 +16,7 @@ router = APIRouter()
 
 
 @router.get("/", response_model=schemas.ActivitiesResponse)
-@disallow([ExecutionMode.REGISTRY, ExecutionMode.CLIENT])
+@disallow([ExecutionMode.CLIENT])
 async def get_activity(
     search: Optional[str] = None,
     search_by: Optional[schemas.ActivitySearchBy] = None,
