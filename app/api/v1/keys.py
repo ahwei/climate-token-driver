@@ -24,7 +24,7 @@ router = APIRouter()
     "/",
     response_model=schemas.Key,
 )
-@disallow([ExecutionMode.REGISTRY, ExecutionMode.EXPLORER])
+@disallow([ExecutionMode.EXPLORER])
 async def get_key(
     hardened: bool = False,
     derivation_index: int = 0,
