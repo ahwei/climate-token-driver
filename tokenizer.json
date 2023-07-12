@@ -1,0 +1,13 @@
+{
+  "token": {
+    "org_uid": "e4e1bef5c7f1ce0faa562ecc5715c6fc101e336413c27e6d94b6cae6bf384f1c",
+    "warehouse_project_id": "b29d41f5-3479-42f4-a627-990305576ddb",
+    "vintage_year": 2023,
+    "sequence_num": 0
+  },
+  "payment": {
+    "amount": 9999999999000,
+    "fee": 100,
+    "to_address": "txch100msjw7weq3fu4ludynluam8vam9tgjht7j3ecazamme76mfccssjrr2wm"
+  }
+}
