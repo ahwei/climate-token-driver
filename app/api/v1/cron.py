@@ -74,12 +74,15 @@ async def _scan_token_activity(
     climate_units: Dict[
         str, Any
     ] = climate_warehouse.combine_climate_units_and_metadata(search={})
+
+
     for unit in climate_units:
         token: Optional[Dict] = unit.get("token")
 
         # is None or empty
         if not token:
-            logger.warning(f"Can not get token in climate warehouse unit. unit:{unit}")
+            asset_id = unit.get("marketplaceIdentifier")
+            logger.warning(f"Can not get token metadata in climate warehouse. asset_id:0x{asset_id}")
             continue
 
         public_key = G1Element.from_bytes(hexstr_to_bytes(token["public_key"]))

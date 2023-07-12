@@ -159,8 +159,9 @@ class ClimateWareHouseCrud(object):
                 continue
 
             org_metadata: Dict[str, str] = metadata_by_id.get(org_uid)
-            metadata: Dict = json.loads(org_metadata.get(f"meta_{asset_id}", "{}"))
-
+           
+            metadata: Dict = json.loads(org_metadata.get(f"meta_0x{asset_id}", "{}"))
+          
             unit["organization"] = org
             unit["token"] = metadata
             unit["project"] = project

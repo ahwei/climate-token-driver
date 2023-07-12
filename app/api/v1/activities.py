@@ -29,6 +29,7 @@ async def get_activity(
 
     This endpoint is to be called by the explorer.
     """
+    logger.info(f"Get activity. search:{search} search_by:{search_by} mode:{mode} page:{page} limit:{limit}")
 
     db_crud = crud.DBCrud(db=db)
 
@@ -56,11 +57,16 @@ async def get_activity(
         url=settings.CADT_API_SERVER_HOST,
         api_key=settings.CADT_API_KEY,
     ).combine_climate_units_and_metadata(search=cw_filters)
+
+
     if len(climate_data) == 0:
         logger.warning(f"No data to get from climate warehouse. search:{cw_filters}")
         return schemas.ActivitiesResponse()
 
-    units = {unit["marketplaceIdentifier"]: unit for unit in climate_data}
+    units = {f"0x{unit['marketplaceIdentifier']}": unit for unit in climate_data}
+
+    logger.info(f"units:{units}")
+
     if len(units) != 0:
         activity_filters["and"].append(models.Activity.asset_id.in_(units.keys()))
 
@@ -74,7 +80,7 @@ async def get_activity(
         model=models.Activity,
         filters=activity_filters,
         order_by=models.Activity.height,
-        page=page,
+        page=page, 
         limit=limit,
     )
     if len(activities) == 0:
