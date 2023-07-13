@@ -13,6 +13,7 @@ from sqlalchemy_utils import create_database, database_exists
 from app import crud, schemas
 from app.api import dependencies as deps
 from app.config import ExecutionMode, settings
+from app.core.utils import add_0x_prefix
 from app.db.base import Base
 from app.db.session import get_engine_cls
 from app.errors import ErrorCode
@@ -81,7 +82,7 @@ async def _scan_token_activity(
 
         # is None or empty
         if not token:
-            asset_id = unit.get("marketplaceIdentifier")
+            asset_id =  add_0x_prefix(unit.get("marketplaceIdentifier"))
             logger.warning(f"Can not get token metadata in climate warehouse. asset_id:0x{asset_id}")
             continue
 

@@ -16,6 +16,7 @@ from app.core.climate_wallet.wallet import ClimateObserverWallet
 from app.core.types import ClimateTokenIndex, GatewayMode
 from app.errors import ErrorCode
 from app.logger import logger
+from app.core.utils import add_0x_prefix
 
 error_code = ErrorCode()
 
@@ -132,7 +133,8 @@ class ClimateWareHouseCrud(object):
 
         onchain_units: List[Dict] = []
         for unit in units:
-            asset_id: str = unit["marketplaceIdentifier"]
+            
+            asset_id: str = add_0x_prefix(unit["marketplaceIdentifier"])
 
             warehouse_project_id: Optional[str] = unit.get("issuance").get(
                 "warehouseProjectId"
@@ -160,7 +162,7 @@ class ClimateWareHouseCrud(object):
 
             org_metadata: Dict[str, str] = metadata_by_id.get(org_uid)
            
-            metadata: Dict = json.loads(org_metadata.get(f"meta_0x{asset_id}", "{}"))
+            metadata: Dict = json.loads(org_metadata.get(f"meta_{asset_id}", "{}"))
           
             unit["organization"] = org
             unit["token"] = metadata
