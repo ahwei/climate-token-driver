@@ -13,6 +13,7 @@ from sqlalchemy_utils import create_database, database_exists
 from app import crud, schemas
 from app.api import dependencies as deps
 from app.config import ExecutionMode, settings
+from app.core.utils import add_0x_prefix
 from app.db.base import Base
 from app.db.session import get_engine_cls
 from app.errors import ErrorCode
@@ -74,12 +75,15 @@ async def _scan_token_activity(
     climate_units: Dict[
         str, Any
     ] = climate_warehouse.combine_climate_units_and_metadata(search={})
+
+
     for unit in climate_units:
         token: Optional[Dict] = unit.get("token")
 
         # is None or empty
         if not token:
-            logger.warning(f"Can not get token in climate warehouse unit. unit:{unit}")
+            asset_id =  add_0x_prefix(unit.get("marketplaceIdentifier"))
+            logger.warning(f"Can not get token metadata in climate warehouse. asset_id:0x{asset_id}")
             continue
 
         public_key = G1Element.from_bytes(hexstr_to_bytes(token["public_key"]))

@@ -133,3 +133,9 @@ async def get_created_signed_transactions(
         transaction_records = [maybe_transaction_records]
 
     return transaction_records
+
+
+def add_0x_prefix(asset_id: str) -> str:
+    if not asset_id.startswith('0x'):
+        asset_id = '0x' + asset_id
+    return asset_id

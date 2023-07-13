@@ -149,7 +149,7 @@ async def create_detokenization_tx(
     "/{asset_id}/request-detokenization",
     response_model=schemas.DetokenizationFileResponse,
 )
-@disallow([ExecutionMode.EXPLORER, ExecutionMode.REGISTRY])
+@disallow([ExecutionMode.EXPLORER])
 async def create_detokenization_file(
     asset_id: str,
     request: schemas.DetokenizationFileRequest,
@@ -256,7 +256,7 @@ async def parse_detokenization_file(
     "/{asset_id}/permissionless-retire",
     response_model=schemas.PermissionlessRetirementTxResponse,
 )
-@disallow([ExecutionMode.EXPLORER, ExecutionMode.REGISTRY])
+@disallow([ExecutionMode.EXPLORER])
 async def create_permissionless_retirement_tx(
     asset_id: str,
     request: schemas.PermissionlessRetirementTxRequest,
